@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<title>Unified Auditing — Аудит Oracle</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="assets/js/app.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<header>
+    <h1>Unified Auditing в Oracle Database</h1>
+</header>
+
+<nav class="nav">
+    <a href="index.html">Главная</a>
+    <a href="unified.html">Unified Auditing</a>
+    <a href="fga.html">FGA</a>
+    <a href="traditional.html">Традиционный аудит</a>
+    <a href="management.html">Управление</a>
+    <a href="architecture.html">Архитектура</a>
+    <a href="security.html">Безопасность</a>
+    <a href="tools.html">Инструменты</a>
+</nav>
+
+<div class="container">
+    <h2>Что такое Unified Auditing</h2>
+    <p>Unified Auditing — современный механизм аудита Oracle, обеспечивающий централизованное хранение всех записей, упрощенное управление политиками и высокую производительность.</p>
+
+    <h2>Пример политики аудита</h2>
+<pre><code>
+CREATE AUDIT POLICY log_changes
+ACTIONS UPDATE TABLE, INSERT TABLE, DELETE TABLE;
+
+AUDIT POLICY log_changes
+    BY user1;
+</code></pre>
+
+    <h2>Просмотр записей аудита</h2>
+<pre><code>
+SELECT event_timestamp, dbusername, action_name, object_name
+FROM UNIFIED_AUDIT_TRAIL
+ORDER BY event_timestamp DESC;
+</code></pre>
+
+    <h2>Схема работы Unified Auditing</h2>
+    <img src="assets/images/scheme_fga.svg" alt="Архитектура Unified Auditing">
+</div>
+
+<footer>© Сайт об аудите Oracle Database</footer>
+</body>
+</html>

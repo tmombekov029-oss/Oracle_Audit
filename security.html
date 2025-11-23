@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<title>Безопасность аудита — Oracle Database</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="assets/js/app.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<header>
+    <h1>Безопасность и защита данных аудита</h1>
+</header>
+
+<nav class="nav">
+    <a href="index.html">Главная</a>
+    <a href="unified.html">Unified Auditing</a>
+    <a href="fga.html">FGA</a>
+    <a href="traditional.html">Традиционный аудит</a>
+    <a href="management.html">Управление</a>
+    <a href="architecture.html">Архитектура</a>
+    <a href="security.html">Безопасность</a>
+    <a href="tools.html">Инструменты</a>
+</nav>
+
+<div class="container">
+    <h2>Защита логов аудита</h2>
+    <ul>
+        <li>Привилегии только для администраторов</li>
+        <li>Шифрование логов Unified Audit Trail</li>
+        <li>Контроль доступа к таблицам аудита</li>
+        <li>Архивация вне основной базы</li>
+        <li>Мониторинг и интеграция с SIEM</li>
+    </ul>
+
+    <h2>Примеры настройки</h2>
+<pre><code>
+REVOKE SELECT ON UNIFIED_AUDIT_TRAIL FROM PUBLIC;
+GRANT SELECT ON UNIFIED_AUDIT_TRAIL TO AUDIT_ADMIN;
+ALTER SYSTEM SET AUDIT_TRAIL='DB, EXTENDED';
+</code></pre>
+
+    <h2>Схема безопасности</h2>
+    <img src="assets/images/scheme_security.svg" alt="Безопасность аудита Oracle">
+</div>
+
+<footer>© Сайт об аудите Oracle Database</footer>
+</body>
+</html>

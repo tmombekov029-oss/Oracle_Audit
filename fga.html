@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<title>FGA — Тонкая аудиторская политика Oracle</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="assets/js/app.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<header>
+    <h1>Fine Grained Auditing (FGA)</h1>
+</header>
+
+<nav class="nav">
+    <a href="index.html">Главная</a>
+    <a href="unified.html">Unified Auditing</a>
+    <a href="fga.html">FGA</a>
+    <a href="traditional.html">Традиционный аудит</a>
+    <a href="management.html">Управление</a>
+    <a href="architecture.html">Архитектура</a>
+    <a href="security.html">Безопасность</a>
+    <a href="tools.html">Инструменты</a>
+</nav>
+
+<div class="container">
+    <h2>Что такое FGA</h2>
+    <p>FGA позволяет вести аудит на уровне отдельных строк и столбцов, фиксируя события только при срабатывании условий.</p>
+
+    <h2>Пример включения FGA</h2>
+<pre><code>
+BEGIN
+  DBMS_FGA.ADD_POLICY (
+    object_schema => 'HR',
+    object_name   => 'EMPLOYEES',
+    policy_name   => 'salary_read_control',
+    audit_condition => 'salary > 20000',
+    audit_column => 'SALARY'
+  );
+END;
+/
+</code></pre>
+
+    <h2>Схема работы FGA</h2>
+    <img src="assets/images/scheme_fga.svg" alt="Fine Grained Auditing">
+</div>
+
+<footer>© Сайт об аудите Oracle Database</footer>
+</body>
+</html>

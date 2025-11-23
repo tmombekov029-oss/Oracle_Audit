@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6ff;
+    line-height: 1.6;
+}
+
+header {
+    background: linear-gradient(90deg, #002d7a, #005bce);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    background: white;
+    padding: 10px;
+    gap: 10px;
+    border-bottom: 1px solid #d0d6ff;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* главное: высокое значение */
+}
+
+.nav a {
+    padding: 10px 15px;
+    background: #e8edff;
+    border-radius: 8px;
+    border: 1px solid #d0d6ff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav a:hover {
+    background: #005bce;
+    color: white;
+    transform: translateY(-3px);
+}
+
+.container {
+    background: white;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+/* Добавим отступ сверху, чтобы контент не закрывался фиксированным меню */
+body > .container {
+    margin-top: 10px; 
+}
+
+img {
+    max-width: 100%;
+    height: auto; 
+    border-radius: 6px;
+    border: 1px solid #ccd2ff;
+}
+
+footer {
+    text-align: center;
+    padding: 12px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 700px) {
+    .nav {
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    .container {
+        margin: 10px 10px 20px 10px;
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    .nav a {
+        width: 90%;
+        text-align: center;
+    }
+}
