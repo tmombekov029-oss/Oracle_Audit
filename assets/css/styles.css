@@ -1,96 +1,291 @@
+/* Общие стили */
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f6ff;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f3f6ff;
+    color: #222;
     line-height: 1.6;
 }
 
+/* Шапка */
 header {
     background: linear-gradient(90deg, #002d7a, #005bce);
+    padding: 15px 20px;
     color: white;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-}
-
-.nav {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center; 
-    background: white;
-    padding: 10px;
-    gap: 10px;
-    border-bottom: 1px solid #d0d6ff;
-    position: sticky;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
     top: 0;
-    z-index: 1000; /* главное: высокое значение */
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-.nav a {
-    padding: 10px 15px;
-    background: #e8edff;
-    border-radius: 8px;
-    border: 1px solid #d0d6ff;
-    font-weight: bold;
-    text-decoration: none;
+header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Бургер-меню */
+.burger-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.burger-btn span {
+    display: block;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
     transition: 0.3s;
 }
 
-.nav a:hover {
+/* Боковая навигация */
+.nav {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    background: #e8ecff;
+    z-index: 999;
+    transition: 0.3s;
+    padding-top: 70px;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.nav.active {
+    left: 0;
+}
+
+.nav a {
+    display: block;
+    padding: 15px 20px;
+    color: #003399;
+    text-decoration: none;
+    border-bottom: 1px solid #cbd5ff;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.nav a:hover,
+.nav a.active {
     background: #005bce;
     color: white;
-    transform: translateY(-3px);
 }
 
+/* Затемнение фона */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* Основной контейнер */
 .container {
+    max-width: 1200px;
+    margin: 80px 20px 20px;
+    padding: 25px;
     background: white;
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 12px;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
 }
 
-/* Добавим отступ сверху, чтобы контент не закрывался фиксированным меню */
-body > .container {
-    margin-top: 10px; 
+.container h2 {
+    color: #002d7a;
+    border-bottom: 2px solid #e8ecff;
+    padding-bottom: 10px;
+    margin: 25px 0 15px;
+    font-size: 22px;
 }
 
+.container h2:first-child {
+    margin-top: 0;
+}
+
+.container p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+/* Блоки кода */
+pre {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #005bce;
+    border-radius: 6px;
+    padding: 18px;
+    overflow-x: auto;
+    margin: 20px 0;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+code {
+    background: #f8f9fa;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 14px;
+}
+
+/* Изображения */
 img {
     max-width: 100%;
-    height: auto; 
-    border-radius: 6px;
-    border: 1px solid #ccd2ff;
+    height: auto;
+    display: block;
+    margin: 25px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* Списки */
+ul, ol {
+    padding-left: 25px;
+    margin: 18px 0;
+}
+
+li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Таблицы */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    border: 1px solid #cbd5ff;
+    font-size: 14px;
+}
+
+table th, table td {
+    border: 1px solid #cbd5ff;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+table th {
+    background: #e8ecff;
+    color: #002d7a;
+    font-weight: 600;
+}
+
+/* Футер */
 footer {
+    background: #002d7a;
+    color: white;
     text-align: center;
-    padding: 12px;
-    font-size: 12px;
-    opacity: 0.6;
+    padding: 20px;
+    margin-top: 30px;
+    font-size: 14px;
 }
 
-/* Мобильная адаптация */
-@media (max-width: 700px) {
-    .nav {
-        flex-direction: column;
-        align-items: center; 
-    }
+/* Секции */
+section {
+    margin: 30px 0;
+    padding: 20px 0;
+    border-bottom: 1px solid #e8ecff;
+}
 
-    .container {
-        margin: 10px 10px 20px 10px;
-        padding: 15px;
-    }
+section:last-child {
+    border-bottom: none;
+}
 
-    header h1 {
-        font-size: 20px;
-    }
-
-    .nav a {
-        width: 90%;
+/* Адаптация для десктопа */
+@media (min-width: 768px) {
+    header {
+        position: static;
         text-align: center;
+        justify-content: center;
     }
+    
+    header h1 {
+        font-size: 24px;
+    }
+    
+    .burger-btn {
+        display: none;
+    }
+    
+    .nav {
+        position: static;
+        width: 100%;
+        height: auto;
+        background: #e8ecff;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        box-shadow: none;
+    }
+    
+    .nav a {
+        display: inline-block;
+        border-bottom: none;
+        border-right: 1px solid #cbd5ff;
+        padding: 15px 25px;
+    }
+    
+    .nav a:last-child {
+        border-right: none;
+    }
+    
+    .overlay {
+        display: none !important;
+    }
+    
+    .container {
+        margin: 20px auto;
+        padding: 30px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        margin: 30px auto;
+        padding: 40px;
+    }
+    
+    .nav a {
+        padding: 15px 30px;
+        font-size: 16px;
+    }
+}
+
+/* Утилиты */
+.hr {
+    height: 2px;
+    background: #e8ecff;
+    margin: 25px 0;
+    border: none;
 }

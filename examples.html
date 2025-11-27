@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
-<title>Инструменты — Oracle Database</title>
+<title>Примеры SQL — Oracle Database</title>
 <link rel="stylesheet" href="assets/css/styles.css"/>
 <script src="assets/js/app.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
         <span></span>
         <span></span>
     </button>
-    <h1>Инструменты аудита</h1>
+    <h1>Примеры SQL</h1>
 </header>
 
 <div class="overlay" id="overlay"></div>
@@ -29,33 +29,37 @@
     <a href="management.html">Управление</a>
     <a href="architecture.html">Архитектура</a>
     <a href="security.html">Безопасность</a>
-    <a href="tools.html" class="active">Инструменты</a>
-    <a href="examples.html">Примеры SQL</a>
+    <a href="tools.html">Инструменты</a>
+    <a href="examples.html" class="active">Примеры SQL</a>
     <a href="about.html">О проекте</a>
 </nav>
 
 <div class="container">
-    <h2>Инструменты анализа аудита</h2>
-    <p>Oracle предоставляет мощный набор инструментов для анализа, фильтрации и визуализации данных аудита.</p>
+    <h2>Примеры SQL для аудита Oracle</h2>
+    <p>Реальные примеры SQL-запросов для анализа логов аудита и отслеживания действий пользователей.</p>
 
-    <h2>Основные инструменты</h2>
-    <ul>
-        <li>Oracle SQL Developer</li>
-        <li>Oracle Enterprise Manager (OEM)</li>
-        <li>Командная строка</li>
-        <li>SIEM системы</li>
-    </ul>
-
-    <h2>Пример SQL запроса</h2>
+    <h2>Просмотр всех записей Unified Auditing</h2>
     <pre><code>
-SELECT event_timestamp, username, action_name, object_name
+SELECT event_timestamp, username, action_name, sql_text
 FROM unified_audit_trail
-WHERE username = 'SCOTT'
 ORDER BY event_timestamp DESC;
     </code></pre>
 
-    <h2>Схема инструментов</h2>
-    <img src="assets/images/scheme_tools.svg" alt="Инструменты аудита">
+    <h2>Поиск ошибок доступа</h2>
+    <pre><code>
+SELECT event_timestamp, username, return_code
+FROM unified_audit_trail
+WHERE return_code != 0
+ORDER BY event_timestamp DESC;
+    </code></pre>
+
+    <h2>Аудит DDL операций</h2>
+    <pre><code>
+SELECT event_timestamp, username, action_name, object_name
+FROM unified_audit_trail
+WHERE action_name IN ('ALTER TABLE', 'DROP TABLE', 'CREATE USER')
+ORDER BY event_timestamp DESC;
+    </code></pre>
 </div>
 
 <footer>© 2025 Oracle Audit Project | Учебный сайт</footer>

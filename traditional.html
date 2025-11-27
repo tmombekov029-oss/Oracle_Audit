@@ -10,35 +10,119 @@
 
 <body>
 <header>
-    <h1>Традиционный аудит Oracle</h1>
+    <button class="burger-btn" onclick="openMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <h1>Традиционный аудит</h1>
 </header>
 
-<nav class="nav">
+<div class="overlay" id="overlay"></div>
+
+<nav class="nav" id="sidebar">
     <a href="index.html">Главная</a>
     <a href="unified.html">Unified Auditing</a>
-    <a href="fga.html">FGA</a>
-    <a href="traditional.html">Традиционный аудит</a>
+    <a href="fga.html">Fine-Grained Auditing</a>
+    <a href="classic.html">Classic Auditing</a>
+    <a href="traditional.html" class="active">Традиционный аудит</a>
     <a href="management.html">Управление</a>
     <a href="architecture.html">Архитектура</a>
     <a href="security.html">Безопасность</a>
     <a href="tools.html">Инструменты</a>
+    <a href="examples.html">Примеры SQL</a>
+    <a href="about.html">О проекте</a>
 </nav>
 
 <div class="container">
-    <h2>Описание</h2>
-    <p>Традиционный аудит фиксирует события на уровне базы данных с помощью AUDIT и NOAUDIT.</p>
+    <h2>Традиционный аудит Oracle</h2>
+    <p>Традиционный аудит фиксирует события на уровне базы данных с помощью команд AUDIT и NOAUDIT. Это классический подход, используемый в версиях до Oracle 12c.</p>
 
-    <h2>Примеры</h2>
-<pre><code>
+    <h2>Основные команды</h2>
+    <pre><code>
+-- Аудит сессий
 AUDIT SESSION;
+
+-- Аудит операций с таблицами
 AUDIT SELECT, INSERT, UPDATE, DELETE ON HR.EMPLOYEES BY ACCESS;
+
+-- Аудит DDL операций
+AUDIT CREATE TABLE, DROP TABLE, ALTER TABLE;
+
+-- Отключение аудита
 NOAUDIT SELECT, INSERT ON HR.EMPLOYEES;
-</code></pre>
+    </code></pre>
+
+    <h2>Типы традиционного аудита</h2>
+    <ul>
+        <li><strong>Аудит привилегий</strong> - системные привилегии</li>
+        <li><strong>Аудит объектов</strong> - операции с объектами БД</li>
+        <li><strong>Аудит действий</strong> - конкретные команды SQL</li>
+        <li><strong>Аудит сессий</strong> - подключения к БД</li>
+    </ul>
+
+    <h2>Настройка параметров</h2>
+    <pre><code>
+-- Проверка текущих настроек
+SHOW PARAMETER audit_trail;
+
+-- Изменение параметра (требует перезагрузки)
+ALTER SYSTEM SET audit_trail='DB,EXTENDED' SCOPE=SPFILE;
+
+-- Параметры audit_trail:
+-- NONE    - аудит выключен
+-- DB      - запись в SYS.AUD$
+-- OS      - запись в файлы ОС
+-- XML     - XML формат
+-- DB,EXTENDED - с SQL текстом
+    </code></pre>
+
+    <h2>Просмотр результатов</h2>
+    <pre><code>
+-- Основное представление аудита
+SELECT username, action_name, returncode, obj_name, timestamp
+FROM dba_audit_trail
+ORDER BY timestamp DESC;
+
+-- Аудит сессий
+SELECT username, returncode, logoff_time, logoff_time
+FROM dba_audit_session
+WHERE returncode != 0;
+
+-- Аудит объектов
+SELECT username, action_name, obj_name, sql_text
+FROM dba_audit_object
+WHERE timestamp > SYSDATE - 1;
+    </code></pre>
+
+    <h2>Управление таблицей AUD$</h2>
+    <pre><code>
+-- Размер таблицы AUD$
+SELECT bytes/1024/1024 as size_mb
+FROM dba_segments
+WHERE segment_name = 'AUD$';
+
+-- Очистка старых записей
+DELETE FROM sys.aud$ 
+WHERE ntimestamp# < SYSDATE - 90;
+
+-- Перемещение таблицы AUD$ в другое tablespace
+ALTER TABLE sys.aud$ MOVE TABLESPACE users;
+    </code></pre>
+
+    <h2>Ограничения традиционного аудита</h2>
+    <ul>
+        <li>Высокая нагрузка на производительность</li>
+        <li>Большой объем данных</li>
+        <li>Сложность управления</li>
+        <li>Ограниченная гибкость условий</li>
+        <li>Отсутствие централизованных политик</li>
+    </ul>
 
     <h2>Схема традиционного аудита</h2>
     <img src="assets/images/scheme_traditional.svg" alt="Традиционный аудит">
 </div>
 
-<footer>© Сайт об аудите Oracle Database</footer>
+<footer>© 2025 Oracle Audit Project | Учебный сайт</footer>
 </body>
 </html>

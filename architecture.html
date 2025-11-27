@@ -10,34 +10,116 @@
 
 <body>
 <header>
-    <h1>Архитектура системы аудита Oracle</h1>
+    <button class="burger-btn" onclick="openMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <h1>Архитектура аудита</h1>
 </header>
 
-<nav class="nav">
+<div class="overlay" id="overlay"></div>
+
+<nav class="nav" id="sidebar">
     <a href="index.html">Главная</a>
     <a href="unified.html">Unified Auditing</a>
-    <a href="fga.html">FGA</a>
+    <a href="fga.html">Fine-Grained Auditing</a>
+    <a href="classic.html">Classic Auditing</a>
     <a href="traditional.html">Традиционный аудит</a>
     <a href="management.html">Управление</a>
-    <a href="architecture.html">Архитектура</a>
+    <a href="architecture.html" class="active">Архитектура</a>
     <a href="security.html">Безопасность</a>
     <a href="tools.html">Инструменты</a>
+    <a href="examples.html">Примеры SQL</a>
+    <a href="about.html">О проекте</a>
 </nav>
 
 <div class="container">
+    <h2>Архитектура системы аудита Oracle</h2>
+    <p>Понимание архитектуры аудита необходимо для эффективной настройки и управления системой безопасности базы данных.</p>
+
     <h2>Компоненты архитектуры</h2>
     <ul>
-        <li>События базы данных (DML, DDL, сессии)</li>
-        <li>Audit Trail (UNIFIED_AUDIT_TRAIL / DBA_AUDIT_TRAIL)</li>
-        <li>Политики аудита</li>
-        <li>FGA — детальный аудит</li>
-        <li>Управление и архивирование</li>
+        <li><strong>События базы данных</strong> - DML, DDL, сессии</li>
+        <li><strong>Audit Trail</strong> - UNIFIED_AUDIT_TRAIL / DBA_AUDIT_TRAIL</li>
+        <li><strong>Политики аудита</strong> - правила и условия аудита</li>
+        <li><strong>FGA</strong> — детальный аудит на уровне строк</li>
+        <li><strong>Управление и архивирование</strong> - жизненный цикл данных</li>
     </ul>
 
-    <h2>Схема архитектуры</h2>
+    <h2>Типы аудита</h2>
+    <table>
+        <tr>
+            <th>Тип аудита</th>
+            <th>Хранилище</th>
+            <th>Производительность</th>
+            <th>Гибкость</th>
+        </tr>
+        <tr>
+            <td>Unified Auditing</td>
+            <td>UNIFIED_AUDIT_TRAIL</td>
+            <td>Высокая</td>
+            <td>Очень высокая</td>
+        </tr>
+        <tr>
+            <td>Classic Auditing</td>
+            <td>AUD$</td>
+            <td>Средняя</td>
+            <td>Ограниченная</td>
+        </tr>
+        <tr>
+            <td>Fine-Grained Auditing</td>
+            <td>FGA_LOG$</td>
+            <td>Зависит от условий</td>
+            <td>Максимальная</td>
+        </tr>
+    </table>
+
+    <h2>Поток данных аудита</h2>
+    <pre><code>
+-- Создание события аудита
+1. Пользователь выполняет операцию
+2. Ядро Oracle проверяет политики аудита
+3. Если условие выполнено - запись в буфер аудита
+4. Периодическая запись из буфера в таблицы аудита
+5. Доступ через системные представления
+    </code></pre>
+
+    <h2>Проверка архитектуры</h2>
+    <pre><code>
+-- Проверка режима аудита
+SELECT parameter, value 
+FROM v$option 
+WHERE parameter = 'Unified Auditing';
+
+-- Просмотр политик
+SELECT policy_name, enabled, audit_option
+FROM audit_unified_policies
+ORDER BY policy_name;
+
+-- Статистика использования
+SELECT audit_type, count(*)
+FROM unified_audit_trail
+GROUP BY audit_type;
+    </code></pre>
+
+    <h2>Производительность</h2>
+    <pre><code>
+-- Мониторинг нагрузки от аудита
+SELECT name, value
+FROM v$sysstat
+WHERE name LIKE '%audit%';
+
+-- Размер таблиц аудита
+SELECT table_name, num_rows, blocks
+FROM dba_tables
+WHERE table_name LIKE '%AUDIT%' OR table_name LIKE '%FGA%';
+    </code></pre>
+
+    <h2>Схема архитектуры аудита</h2>
     <img src="assets/images/scheme_architecture.svg" alt="Архитектура аудита Oracle">
 </div>
 
-<footer>© Сайт об аудите Oracle Database</footer>
+<footer>© 2025 Oracle Audit Project | Учебный сайт</footer>
 </body>
 </html>

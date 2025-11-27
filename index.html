@@ -2,60 +2,66 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
-<title>Аудит Oracle — Главная</title>
+<title>Главная — Аудит Oracle Database</title>
 <link rel="stylesheet" href="assets/css/styles.css"/>
 <script src="assets/js/app.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-
 <header>
-    <h1>Аудит действий пользователя в Oracle Database</h1>
+    <button class="burger-btn" onclick="openMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <h1>Аудит Oracle Database</h1>
 </header>
 
-<nav class="nav">
-    <a href="index.html">Главная</a>
+<div class="overlay" id="overlay"></div>
+
+<nav class="nav" id="sidebar">
+    <a href="index.html" class="active">Главная</a>
     <a href="unified.html">Unified Auditing</a>
-    <a href="fga.html">FGA</a>
+    <a href="fga.html">Fine-Grained Auditing</a>
+    <a href="classic.html">Classic Auditing</a>
     <a href="traditional.html">Традиционный аудит</a>
     <a href="management.html">Управление</a>
     <a href="architecture.html">Архитектура</a>
     <a href="security.html">Безопасность</a>
     <a href="tools.html">Инструменты</a>
+    <a href="examples.html">Примеры SQL</a>
+    <a href="about.html">О проекте</a>
 </nav>
 
 <div class="container">
-    <h2>О проекте</h2>
-    <p>Oracle Database предоставляет мощные инструменты контроля действий пользователей и администраторов. Основная задача аудита — фиксировать важные события работы БД:</p>
+    <h2>Добро пожаловать в систему аудита Oracle</h2>
+    <p>Этот учебный проект посвящён механизмам аудита в Oracle Database. Здесь вы найдёте информацию о различных типах аудита, практические примеры и рекомендации по безопасности.</p>
+
+    <h2>Основные разделы</h2>
     <ul>
-        <li>вход и выход пользователей;</li>
-        <li>операции с таблицами и схемами;</li>
-        <li>изменение конфигурации;</li>
-        <li>доступ к конфиденциальным данным;</li>
-        <li>административные действия;</li>
-        <li>попытки нарушения безопасности.</li>
+        <li><strong>Unified Auditing</strong> - современный механизм аудита</li>
+        <li><strong>Fine-Grained Auditing</strong> - детальный аудит на уровне строк</li>
+        <li><strong>Classic Auditing</strong> - классический подход к аудиту</li>
+        <li><strong>Инструменты</strong> - средства анализа и мониторинга</li>
+        <li><strong>Примеры SQL</strong> - готовые запросы для работы</li>
     </ul>
 
-    <h2>Основные технологии аудита</h2>
-    <ul>
-        <li>Unified Auditing</li>
-        <li>FGA — Fine Grained Auditing</li>
-        <li>Традиционный аудит</li>
-        <li>Управление и хранение логов</li>
-        <li>Архитектура и компоненты</li>
-        <li>Безопасность и предотвращение злоупотреблений</li>
-        <li>Интеграция с SIEM</li>
-    </ul>
+    <h2>Быстрый старт</h2>
+    <pre><code>
+-- Проверка активности аудита
+SELECT * FROM dba_audit_policies;
 
-    <h2>Схемы работы</h2>
-    <img src="assets/images/scheme_fga.svg" alt="Схема работы FGA">
-    <img src="assets/images/scheme_traditional.svg" alt="Схема традиционного аудита">
+-- Просмотр логов аудита
+SELECT event_timestamp, username, action_name 
+FROM unified_audit_trail 
+ORDER BY event_timestamp DESC;
+    </code></pre>
+
+    <h2>Архитектура системы</h2>
+    <img src="assets/images/scheme_architecture.svg" alt="Архитектура аудита Oracle">
 </div>
 
-<footer>
-    © Сайт об аудите Oracle Database
-</footer>
-
+<footer>© 2025 Oracle Audit Project | Учебный сайт</footer>
 </body>
 </html>

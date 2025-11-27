@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
-<title>Безопасность — Oracle Database</title>
+<title>Classic Auditing — Oracle Database</title>
 <link rel="stylesheet" href="assets/css/styles.css"/>
 <script src="assets/js/app.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
         <span></span>
         <span></span>
     </button>
-    <h1>Безопасность аудита</h1>
+    <h1>Classic Auditing</h1>
 </header>
 
 <div class="overlay" id="overlay"></div>
@@ -24,42 +24,43 @@
     <a href="index.html">Главная</a>
     <a href="unified.html">Unified Auditing</a>
     <a href="fga.html">Fine-Grained Auditing</a>
-    <a href="classic.html">Classic Auditing</a>
+    <a href="classic.html" class="active">Classic Auditing</a>
     <a href="traditional.html">Традиционный аудит</a>
     <a href="management.html">Управление</a>
     <a href="architecture.html">Архитектура</a>
-    <a href="security.html" class="active">Безопасность</a>
+    <a href="security.html">Безопасность</a>
     <a href="tools.html">Инструменты</a>
     <a href="examples.html">Примеры SQL</a>
     <a href="about.html">О проекте</a>
 </nav>
 
 <div class="container">
-    <h2>Рекомендации по безопасности</h2>
-    <p>Лучшие практики по настройке аудита, защите базы данных и выявлению атак.</p>
+    <h2>Classic Auditing</h2>
+    <p>Классический аудит — традиционный метод регистрации действий пользователей, существующий в Oracle с ранних версий.</p>
 
-    <h2>Используйте Unified Auditing</h2>
+    <h2>Включение классического аудита</h2>
     <pre><code>
--- Проверка использования Unified Auditing
-SELECT parameter, value 
-FROM v$option 
-WHERE parameter = 'Unified Auditing';
+ALTER SYSTEM SET audit_trail='DB,EXTENDED' SCOPE=SPFILE;
+SHUTDOWN IMMEDIATE;
+STARTUP;
     </code></pre>
 
-    <h2>Защита от bruteforce</h2>
+    <h2>Примеры команд аудита</h2>
     <pre><code>
-ALTER PROFILE DEFAULT LIMIT FAILED_LOGIN_ATTEMPTS 5;
-ALTER PROFILE DEFAULT LIMIT PASSWORD_LOCK_TIME 1;
+AUDIT SESSION;
+AUDIT SELECT ON hr.employees;
+AUDIT INSERT, UPDATE, DELETE ON hr.employees;
     </code></pre>
 
-    <h2>Архивирование аудита</h2>
+    <h2>Просмотр результатов</h2>
     <pre><code>
-DELETE FROM unified_audit_trail 
-WHERE event_timestamp < SYSDATE - 90;
+SELECT username, action_name, obj_name, timestamp
+FROM dba_audit_trail
+ORDER BY timestamp DESC;
     </code></pre>
 
-    <h2>Схема безопасности</h2>
-    <img src="assets/images/scheme_security.svg" alt="Схема безопасности">
+    <h2>Архитектура Classic Auditing</h2>
+    <img src="assets/images/classic_audit_architecture.svg" alt="Архитектура Classic Auditing">
 </div>
 
 <footer>© 2025 Oracle Audit Project | Учебный сайт</footer>

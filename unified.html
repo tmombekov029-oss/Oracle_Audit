@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
-<title>Unified Auditing — Аудит Oracle</title>
+<title>Unified Auditing — Oracle Database</title>
 <link rel="stylesheet" href="assets/css/styles.css"/>
 <script src="assets/js/app.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,44 +10,61 @@
 
 <body>
 <header>
-    <h1>Unified Auditing в Oracle Database</h1>
+    <button class="burger-btn" onclick="openMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <h1>Unified Auditing</h1>
 </header>
 
-<nav class="nav">
+<div class="overlay" id="overlay"></div>
+
+<nav class="nav" id="sidebar">
     <a href="index.html">Главная</a>
-    <a href="unified.html">Unified Auditing</a>
-    <a href="fga.html">FGA</a>
+    <a href="unified.html" class="active">Unified Auditing</a>
+    <a href="fga.html">Fine-Grained Auditing</a>
+    <a href="classic.html">Classic Auditing</a>
     <a href="traditional.html">Традиционный аудит</a>
     <a href="management.html">Управление</a>
     <a href="architecture.html">Архитектура</a>
     <a href="security.html">Безопасность</a>
     <a href="tools.html">Инструменты</a>
+    <a href="examples.html">Примеры SQL</a>
+    <a href="about.html">О проекте</a>
 </nav>
 
 <div class="container">
-    <h2>Что такое Unified Auditing</h2>
-    <p>Unified Auditing — современный механизм аудита Oracle, обеспечивающий централизованное хранение всех записей, упрощенное управление политиками и высокую производительность.</p>
+    <h2>Unified Auditing в Oracle Database</h2>
+    <p>Unified Auditing — это современная архитектура аудита, введённая в Oracle Database 12c. Она объединяет все типы аудита в единую централизованную подсистему.</p>
 
-    <h2>Пример политики аудита</h2>
-<pre><code>
-CREATE AUDIT POLICY log_changes
-ACTIONS UPDATE TABLE, INSERT TABLE, DELETE TABLE;
+    <h2>Основные преимущества</h2>
+    <ul>
+        <li>Высокая производительность</li>
+        <li>Централизованность настроек</li>
+        <li>Улучшенная защита логов</li>
+        <li>Интеграция со всеми механизмами Oracle</li>
+    </ul>
 
-AUDIT POLICY log_changes
-    BY user1;
-</code></pre>
+    <h2>Пример создания политики</h2>
+    <pre><code>
+CREATE AUDIT POLICY logins
+    ACTIONS LOGON;
+
+AUDIT POLICY logins;
+    </code></pre>
 
     <h2>Просмотр записей аудита</h2>
-<pre><code>
-SELECT event_timestamp, dbusername, action_name, object_name
-FROM UNIFIED_AUDIT_TRAIL
+    <pre><code>
+SELECT event_timestamp, username, action_name, sql_text
+FROM unified_audit_trail
 ORDER BY event_timestamp DESC;
-</code></pre>
+    </code></pre>
 
-    <h2>Схема работы Unified Auditing</h2>
-    <img src="assets/images/scheme_fga.svg" alt="Архитектура Unified Auditing">
+    <h2>Архитектура Unified Auditing</h2>
+    <img src="assets/images/unified_architecture.svg" alt="Архитектура Unified Auditing">
 </div>
 
-<footer>© Сайт об аудите Oracle Database</footer>
+<footer>© 2025 Oracle Audit Project | Учебный сайт</footer>
 </body>
 </html>
